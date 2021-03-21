@@ -15,31 +15,29 @@
 
 <script>
 import apiService from "../apiService";
-import { useRouter } from 'vue-router';
+/*import { useRouter } from 'vue-router';*/
 import ProductItem from "../components/prods-item.vue"
 
 import {
   
   IonList,
-  IonItem,
+  
 
 } from "@ionic/vue";
-import router from '@/router';
+/*import router from '@/router';*/
 
 export default {
   name: "Products",
   components: {
    
     IonList,
-    IonItem,
+ ProductItem
   },
-  components:{
-ProductItem
-  },
-  setup() {
+  
+  /*setup() {
       const router = useRouter();
       return { router };
-    },
+    },*/
   data: () => ({
     products:[]
   }),

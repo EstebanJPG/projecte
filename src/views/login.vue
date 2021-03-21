@@ -40,7 +40,7 @@ import { useRouter } from 'vue-router';
 
 import {
   IonButton,
-  IonFooter,
+  
   IonInput,
   IonList,
   IonItem,
@@ -50,7 +50,7 @@ import {
   IonToolbar,
   IonTitle,
   IonContent,
-  IonInputVue,
+  
 } from "@ionic/vue";
 import router from '@/router';
 
@@ -58,7 +58,7 @@ export default {
   name: "Tab1",
   components: {
     IonButton,
-    IonFooter,
+    
     IonInput,
     IonList,
     IonItem,
@@ -68,7 +68,7 @@ export default {
     IonTitle,
     IonContent,
     IonPage,
-    IonInputVue,
+   
   },
   setup() {
       const router = useRouter();
@@ -85,9 +85,9 @@ return new Promise((resolve, reject) => {
         apiService.login.getToken(this.email, this.password)
           .then(response => {
 
-            let token = response.data.token
-            if (token) {
-              localStorage.setItem('access_token', token)
+           response.data.token
+            if (response.data.token) {
+              localStorage.setItem('access_token', response.data.token)
               
               resolve()
             }

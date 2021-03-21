@@ -13,42 +13,28 @@
 import { useRouter } from 'vue-router';
 
 import {
-  IonButton,
-  IonFooter,
-  IonInput,
-  IonList,
+  
   IonItem,
   IonLabel,
-  IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
-  IonInputVue,
+  
+  IonThumbnail
 } from "@ionic/vue";
-import router from '@/router';
+/*import router from '@/router';*/
 
 export default {
   name: "product-item",
   components: {
-    IonButton,
-    IonFooter,
-    IonInput,
-    IonList,
+   
     IonItem,
-    IonLabel,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonContent,
-    IonPage,
-    IonInputVue,
+    IonLabel, 
+    
+    IonThumbnail
   },
   props:["product"],
-  setup() {
+  /*setup() {
       const router = useRouter();
       return { router };
-    },
+    },*/
   data: () => ({
     email: "",
     pass: "",
