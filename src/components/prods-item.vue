@@ -16,7 +16,7 @@ import {
   
   IonItem,
   IonLabel,
-  
+  IonImg,
   IonThumbnail
 } from "@ionic/vue";
 /*import router from '@/router';*/
@@ -27,7 +27,7 @@ export default {
    
     IonItem,
     IonLabel, 
-    
+    IonImg,
     IonThumbnail
   },
   props:["product"],

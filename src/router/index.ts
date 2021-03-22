@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
-import Tabs from '../views/Tabs.vue';
+
 import Login from '../views/login.vue';
 import Logout from '../views/logout.vue';
 import Prod from '../views/prods.vue';
-
+import Register from "../views/register.vue";
 const ifNotAuthenticated = (to, from, next) => {
   if (!localStorage.getItem("access_token")) {
     next()
@@ -18,14 +18,31 @@ const ifAuthenticated = (to, from, next) => {
     next()
     return
   }
-  next('/tabs/login')
+  next('/login')
 }
  
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/page/prod'
+    redirect: '/productos'
+  },
+  {
+    path: '/productos',
+    name: 'productos',
+    component: Prod,
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login,
+    beforeEnter: ifNotAuthenticated,
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: Register,
+    beforeEnter: ifNotAuthenticated,
   },
   
   {
@@ -34,28 +51,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Logout,
     beforeEnter: ifAuthenticated,
   },
-  {
-    path: '/page/',
-    component: Tabs,
-    children: [
-      {
-        path: 'prod',
-        name: 'Prod',
-        component: Prod,
-      },
-      
-      {
-        path: 'tab2',
-        component: () => import('@/views/Tab2.vue')
-      },
-      {
-        path: 'login',
-        name: 'login',
-        component: Login,
-      },
-    
-    ]
-  }
+  
 ]
 
 const router = createRouter({

@@ -1,17 +1,17 @@
 <template>
   <ion-page>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Login</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content :fullscreen="true">
-      <ion-header collapse="condense" class="ion-padding">
-        <ion-toolbar>
-          <ion-title size="large">Login</ion-title>
-        </ion-toolbar>
-      </ion-header>
-
+   <ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>     
+    <ion-title>
+      Login
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div>
       <form @submit.prevent="submitForm">
         <ion-list>
           <ion-item>
@@ -29,9 +29,11 @@
         </ion-list>
         <ion-button color="success" type="submit">Submit</ion-button>
         <ion-button color="danger" type="reset">Reset</ion-button>
+         <ion-button small href="/register" class="botonRegister">Register</ion-button>
       </form>
+      </div>
     </ion-content>
-  </ion-page>
+   </ion-page>
 </template>
 
 <script>
@@ -50,6 +52,8 @@ import {
   IonToolbar,
   IonTitle,
   IonContent,
+  IonButtons,
+  IonMenuButton
   
 } from "@ionic/vue";
 import router from '@/router';
@@ -58,7 +62,7 @@ export default {
   name: "Tab1",
   components: {
     IonButton,
-    
+    IonPage,
     IonInput,
     IonList,
     IonItem,
@@ -67,7 +71,9 @@ export default {
     IonToolbar,
     IonTitle,
     IonContent,
-    IonPage,
+   
+    IonButtons,
+    IonMenuButton
    
   },
   setup() {
@@ -97,38 +103,6 @@ return new Promise((resolve, reject) => {
             reject(error)
           })
       })
-
-
-
-      /*
-
-      //Peticion Token al server
-     apiService.login
-        .getToken(this.email, this.password)
-        .then((response) => {
-          const token = response.data.token;
-          if (token) {
-            localStorage.setItem("access_token", token);
-
-            //Loguear al Usuario
-            apiService.search
-              .getUser(this.email)
-              .then((response) => {
-                localStorage.setItem("userName", response.name);
-                localStorage.setItem("userID", response.id);
-                localStorage.setItem("userAddress", response.address);
-
-                this['router'].push("/");
-                console.log("ok");
-              })
-              .catch((error) => {
-                console.log(error);
-              });
-          }
-        })
-        .catch((error) => {
-          alert(error);
-        });*/
     },
 
     submitForm() {
@@ -142,7 +116,7 @@ return new Promise((resolve, reject) => {
                 localStorage.setItem("userName", response.data.name);
                 localStorage.setItem("userID", response.data.id);
                 localStorage.setItem("userAddress", response.data.address);
-                this.$router.push("/page/prod"),
+                this.$router.push("/productos"),
                 router.push("prod")
                 console.log("ok");
 
@@ -161,3 +135,16 @@ return new Promise((resolve, reject) => {
   
 };
 </script>
+<style scoped>
+.botonRegister{
+
+ font-size:10px;
+        font-family:Verdana,Helvetica;
+        font-weight:bold;
+        color:white;
+        background:#638cb5;
+        border:0px;
+        width:80px;
+        height:19px;
+}
+</style>
