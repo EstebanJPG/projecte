@@ -20,7 +20,7 @@ setup() {
         localStorage.removeItem('userAddress')
         return;
       }
-         router.push("/page/prod");
+         router.push("/productos");
        
     }
 }

@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import { alertController } from '@ionic/core'
 import apiService from "../apiService";
 import { useRouter } from 'vue-router';
 
@@ -85,6 +86,19 @@ export default {
     pass: "",
   }),
   methods: {
+
+alertIonic(message) {
+      return alertController
+        .create({
+          header: 'Alert',
+          subHeader: 'Informacion',
+          message: message,
+          buttons: ['OK'],
+        })
+        .then(a => a.present())
+    },
+
+
     getToken() {
       
 return new Promise((resolve, reject) => {
@@ -117,7 +131,7 @@ return new Promise((resolve, reject) => {
                 localStorage.setItem("userID", response.data.id);
                 localStorage.setItem("userAddress", response.data.address);
                 this.$router.push("/productos"),
-                router.push("prod")
+              
                 console.log("ok");
 
               })
