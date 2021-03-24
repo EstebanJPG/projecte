@@ -1,28 +1,20 @@
 <template>
-
+<div class="espacio"></div>
 <ion-card>
          <ion-img :src="product.photo"></ion-img>
         <ion-card-header>
-          <ion-card-subtitle>{{product.stock}}</ion-card-subtitle>
+          <ion-card-subtitle>{{product.stock}} en Stock</ion-card-subtitle>
           <ion-card-title>{{product.name}}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
           {{product.description}}
         </ion-card-content>
+        
+        <ion-button color="danger" syze="small"  @click="addShop">Añadir</ion-button>
+        <ion-button color="success" syze="small" @click="ver">Ver</ion-button>
       </ion-card>
 
 
-
-
-   <!-- <ion-item>
-    <ion-thumbnail slot="start">
-        <ion-img :src="product.photo"></ion-img>
-      </ion-thumbnail>
-      <ion-label>{{product.name}}</ion-label>
-      <ion-label>{{product.stock}} Nº Stock</ion-label>
-      <ion-label>{{ product.description }}</ion-label>
-
-    </ion-item>-->
 </template>
 <script>
 import { useRouter } from 'vue-router';
@@ -34,10 +26,11 @@ IonImg,
   IonCardHeader,
   IonCardTitle,
   IonCardSubtitle,
-  IonCardContent
+  IonCardContent,
+  IonButton
   
 } from "@ionic/vue";
-/*import router from '@/router';*/
+import router from '@/router';
 
 export default {
   name: "product-item",
@@ -48,14 +41,15 @@ export default {
     IonCardHeader,
     IonCardTitle,
     IonCardSubtitle,
-    IonCard
+    IonCard,
+    IonButton
   
   },
   props:["product"],
-  /*setup() {
+  setup() {
       const router = useRouter();
       return { router };
-    },*/
+    },
   data: () => ({
     email: "",
     pass: "",
@@ -70,5 +64,19 @@ export default {
       }
     }
   },
+
+  methods:{
+
+    ver(){
+      console.log("sssH")
+this.$router.push("/productos/"+this.product.id)
+
+return;
+    },
+
+    addShop(){
+return;
+    }
+  }
 }
 </script>

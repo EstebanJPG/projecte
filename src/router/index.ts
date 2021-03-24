@@ -5,6 +5,7 @@ import Login from '../views/login.vue';
 import Logout from '../views/logout.vue';
 import Prod from '../views/prods.vue';
 import Register from "../views/register.vue";
+import oneProduct from "../views/oneprod.vue";
 const ifNotAuthenticated = (to, from, next) => {
   if (!localStorage.getItem("access_token")) {
     next()
@@ -31,6 +32,12 @@ const routes: Array<RouteRecordRaw> = [
     path: '/productos',
     name: 'productos',
     component: Prod,
+  },
+  {
+    path: '/productos/:id',
+    name: 'one-product',
+    component: oneProduct,
+    props: true,
   },
   {
     path: '/login',
