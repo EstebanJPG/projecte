@@ -6,6 +6,7 @@ import Logout from '../views/logout.vue';
 import Prod from '../views/prods.vue';
 import Register from "../views/register.vue";
 import oneProduct from "../views/oneprod.vue";
+import Carrito from '../views/carrito.vue'
 const ifNotAuthenticated = (to, from, next) => {
   if (!localStorage.getItem("access_token")) {
     next()
@@ -57,6 +58,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'logout',
     component: Logout,
     beforeEnter: ifAuthenticated,
+  },
+  {
+    path: '/carrito',
+    name: 'carrito',
+    component: Carrito,
   },
   
 ]

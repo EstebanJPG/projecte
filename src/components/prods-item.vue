@@ -30,7 +30,7 @@ IonImg,
   IonButton
   
 } from "@ionic/vue";
-import router from '@/router';
+
 
 export default {
   name: "product-item",
@@ -53,6 +53,7 @@ export default {
   data: () => ({
     email: "",
     pass: "",
+    arrayCarrito:[],
   }),
 
   filters: {
@@ -68,14 +69,18 @@ export default {
   methods:{
 
     ver(){
-      console.log("sssH")
+      
 this.$router.push("/productos/"+this.product.id)
 
 return;
     },
 
     addShop(){
-return;
+
+      this.arrayCarrito=JSON.parse(localStorage.getItem("carritoCompras"));;
+      this.arrayCarrito.push(this.product);
+      localStorage.setItem("carritoCompras",JSON.stringify(this.arrayCarrito));
+
     }
   }
 }

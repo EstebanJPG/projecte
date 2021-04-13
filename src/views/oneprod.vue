@@ -75,6 +75,7 @@ export default {
     return {
       product: {},
       date: new Date(),
+      arrayCarrito:[],
     };
   },
   mounted() {
@@ -101,6 +102,13 @@ export default {
       this.$store.dispatch("addToCard", this.product);
       this.$router.push("/carrito");
     },
+    addShop(){
+      this.arrayCarrito=JSON.parse(localStorage.getItem("carritoCompras"));;
+      this.arrayCarrito.push(this.product);
+      localStorage.setItem("carritoCompras",JSON.stringify(this.arrayCarrito));
+      
+      
+    }
   },
 };
 </script>

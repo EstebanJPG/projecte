@@ -28,6 +28,13 @@
                 <ion-icon slot="start" name="'logout'"></ion-icon>
                 <ion-label> Logout </ion-label>
               </ion-item>
+               <ion-item
+                v-if="logget"
+                href="/carrito"
+              >
+                <ion-icon slot="start" name="'carrito'"></ion-icon>
+                <ion-label> Carrito </ion-label>
+              </ion-item>
             </ion-menu-toggle>
           </ion-list>
         </ion-content>
