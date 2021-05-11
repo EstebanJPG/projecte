@@ -36,6 +36,8 @@ import {
   IonButtons,
   IonMenuButton,
   IonTitle,
+  IonPage,
+  IonContent
 } from "@ionic/vue";
 /*import router from '@/router';*/
 
@@ -49,6 +51,8 @@ export default {
     IonButtons,
     IonMenuButton,
     IonTitle,
+    IonPage,
+    IonContent
   },
 
   /*setup() {

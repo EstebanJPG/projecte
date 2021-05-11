@@ -103,7 +103,7 @@ export default {
       this.$router.push("/carrito");
     },
     addShop(){
-      this.arrayCarrito=JSON.parse(localStorage.getItem("carritoCompras"));;
+      this.arrayCarrito=JSON.parse(localStorage.getItem("carritoCompras"));
       this.arrayCarrito.push(this.product);
       localStorage.setItem("carritoCompras",JSON.stringify(this.arrayCarrito));
       

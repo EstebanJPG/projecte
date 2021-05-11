@@ -1,87 +1,116 @@
 <template>
-<div class="espacio"></div>
-<ion-card>
-         <ion-img :src="product.photo"></ion-img>
-        <ion-card-header>
-          <ion-card-subtitle>{{product.stock}} en Stock</ion-card-subtitle>
-          <ion-card-title>{{product.name}}</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          {{product.description}}
-        </ion-card-content>
-        
-        <ion-button color="danger" syze="small"  @click="addShop">Añadir</ion-button>
-        <ion-button color="success" syze="small" @click="ver">Ver</ion-button>
-      </ion-card>
+  <div class="espacio"></div>
+  <ion-card>
+    <ion-img :src="product.photo"></ion-img>
+    <ion-card-header>
+      <ion-card-subtitle>{{ product.stock }} en Stock</ion-card-subtitle>
+      <ion-card-title>{{ product.name }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{ product.description }}
+    </ion-card-content>
 
-
+    <ion-button color="danger" syze="small" @click="addShop">Añadir</ion-button>
+    <ion-button color="success" syze="small" @click="ver">Ver</ion-button>
+  </ion-card>
 </template>
 <script>
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
 
 import {
-  
-IonImg,
+  IonImg,
   IonCard,
   IonCardHeader,
   IonCardTitle,
   IonCardSubtitle,
   IonCardContent,
-  IonButton
-  
+  IonButton,
 } from "@ionic/vue";
-
 
 export default {
   name: "product-item",
   components: {
-   
     IonImg,
     IonCardContent,
     IonCardHeader,
     IonCardTitle,
     IonCardSubtitle,
     IonCard,
-    IonButton
-  
+    IonButton,
   },
-  props:["product"],
+  props: ["product"],
   setup() {
-      const router = useRouter();
-      return { router };
-    },
+    const router = useRouter();
+    return { router };
+  },
   data: () => ({
     email: "",
     pass: "",
-    arrayCarrito:[],
+    arrayCarrito: [],
+    productoLocal: {}
   }),
 
   filters: {
     shortDescription(value) {
       if (value && value.length > 100) {
-        return value.substring(0, 100) + '...';
+        return value.substring(0, 100) + "...";
       } else {
         return value;
       }
-    }
+    },
   },
 
-  methods:{
+  methods: {
+    ver() {
+      this.$router.push("/productos/" + this.product.id);
 
-    ver(){
-      
-this.$router.push("/productos/"+this.product.id)
-
-return;
+      return;
     },
 
-    addShop(){
+    addShop() {
+        this.productoLocal=this.product
+      console.log("Entroo");
 
-      this.arrayCarrito=JSON.parse(localStorage.getItem("carritoCompras"));;
-      this.arrayCarrito.push(this.product);
-      localStorage.setItem("carritoCompras",JSON.stringify(this.arrayCarrito));
+      if (localStorage.getItem("carritoCompras")) {
+        this.arrayCarrito = JSON.parse(localStorage.getItem("carritoCompras"));
 
-    }
-  }
-}
+        const productRepet = this.arrayCarrito.findIndex(
+          (elemt) => (elemt.id = this.product.id)
+        );
+        console.log("Product" + JSON.stringify(this.productoLocal));
+        if (productRepet) {
+          const cantidad = Number(this.productoLocal) + 1;
+          this.productoLocal.quantity = cantidad;
+          this.arrayCarrito.splice(productRepet, 1, this.productoLocal);
+        }
+        if (!productRepet) {
+          this.productoLocal.quantity = 1;
+          this.arrayCarrito.push(this.productoLocal);
+        }
+
+        localStorage.removeItem("carritoCompras");
+
+        localStorage.setItem(
+          "carritoCompras",
+          JSON.stringify(this.arrayCarrito)
+        );
+
+        console.log(
+          "Funcionaaaa???" + JSON.parse(localStorage.getItem("carritoCompras"))
+        );
+
+        const pa = JSON.parse(localStorage.getItem("carritoCompras"));
+        pa.forEach((element) => {
+          console.log(element);
+        });
+      } else {
+        this.arrayCarrito.push(this.product);
+        localStorage.setItem(
+          "carritoCompras",
+          JSON.stringify(this.arrayCarrito)
+        );
+      }
+    },
+  },
+};
 </script>
