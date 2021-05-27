@@ -68,6 +68,13 @@ export default {
     },
 
     addShop() {
+
+if(!localStorage.getItem('access_token')){
+   this.$router.push("/login");
+   return;
+}
+
+
         this.productoLocal=this.product
       console.log("Entroo");
 
@@ -77,7 +84,7 @@ export default {
         const productRepet = this.arrayCarrito.findIndex(
           (elemt) => (elemt.id = this.product.id)
         );
-        console.log("Product" + JSON.stringify(this.productoLocal));
+        
         if (productRepet) {
           const cantidad = Number(this.productoLocal) + 1;
           this.productoLocal.quantity = cantidad;
@@ -87,7 +94,7 @@ export default {
           this.productoLocal.quantity = 1;
           this.arrayCarrito.push(this.productoLocal);
         }
-
+console.log("Product" + JSON.stringify(this.productoLocal));
         localStorage.removeItem("carritoCompras");
 
         localStorage.setItem(
@@ -95,16 +102,16 @@ export default {
           JSON.stringify(this.arrayCarrito)
         );
 
-        console.log(
-          "Funcionaaaa???" + JSON.parse(localStorage.getItem("carritoCompras"))
-        );
+        
 
         const pa = JSON.parse(localStorage.getItem("carritoCompras"));
         pa.forEach((element) => {
-          console.log(element);
+          console.log("Productos"+element);
         });
       } else {
-        this.arrayCarrito.push(this.product);
+         this.productoLocal=this.product;
+         this.productoLocal.quantity=1;
+        this.arrayCarrito.push(this.productoLocal);
         localStorage.setItem(
           "carritoCompras",
           JSON.stringify(this.arrayCarrito)
