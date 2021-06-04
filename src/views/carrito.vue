@@ -15,20 +15,20 @@
 <ion-content class="ion-margin">
   <ion-grid class="ion-margin">
     <ion-row>
-      <ion-col>Product</ion-col>
-      <ion-col>Price</ion-col>
-      <ion-col>Quantity</ion-col>
-      <ion-col>Subtotal</ion-col>
+      <ion-col>Producto</ion-col>
+      <ion-col>Precio</ion-col>
+      <ion-col>Cantidad</ion-col>
+      <ion-col>Eliminar</ion-col>
       <ion-col></ion-col>
     </ion-row>
-    <ion-row *ngFor="let producto of carrito; index as i">
+    <ion-row v-for="(producto, index) in carrito" :key="index">
       <ion-col><ion-img :src="producto.photo"></ion-img></ion-col>
       <ion-col>{{producto.price}}</ion-col>
       <ion-col>{{producto.quantity}}</ion-col>
       <ion-col><ion-button color="danger" syze="small"  @click="dellItemCart(producto.id)"> Añadir</ion-button></ion-col>
     </ion-row>
   </ion-grid>
-
+<ion-button color="danger" syze="small"  @click="dellAll"> Eliminar todo carrito</ion-button>
   <ion-item lines="none">
     <ion-button color="primary" size="small" slot="end" routerLink="/material">
       Material Design Table
@@ -96,6 +96,9 @@ export default {
   methods: {
     dellItemCart(id){
         return;
+    },
+    dellAll(){
+      localStorage.removeItem("carritoCompras");
     }
   },
 };

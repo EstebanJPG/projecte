@@ -1,7 +1,7 @@
 <template>
   <div class="espacio"></div>
   <ion-card>
-    <ion-img :src="product.photo"></ion-img>
+    <ion-img :src="product.photo" @click="ver"></ion-img>
     <ion-card-header>
       <ion-card-subtitle>{{ product.stock }} en Stock</ion-card-subtitle>
       <ion-card-title>{{ product.name }}</ion-card-title>
@@ -47,7 +47,7 @@ export default {
     email: "",
     pass: "",
     arrayCarrito: [],
-    productoLocal: {}
+    productoLocal: {},
   }),
 
   filters: {
@@ -68,33 +68,38 @@ export default {
     },
 
     addShop() {
+      if (!localStorage.getItem("access_token")) {
+        this.$router.push("/login");
+        return;
+      }
+      this.productoLocal = this.product;
 
-if(!localStorage.getItem('access_token')){
-   this.$router.push("/login");
-   return;
-}
-
-
-        this.productoLocal=this.product
-      console.log("Entroo");
+      //Añadir atributo cantidad
+      this.productoLocal.quantity = 0;
 
       if (localStorage.getItem("carritoCompras")) {
         this.arrayCarrito = JSON.parse(localStorage.getItem("carritoCompras"));
 
-        const productRepet = this.arrayCarrito.findIndex(
-          (elemt) => (elemt.id = this.product.id)
+        console.log("ArrayCarrito " + JSON.stringify(this.arrayCarrito));
+
+        const productRepet = this.arrayCarrito.find(
+          (elemt) => (elemt.id = this.productoLocal.id)
         );
-        
+
         if (productRepet) {
-          const cantidad = Number(this.productoLocal) + 1;
+          const cantidad = Number(productRepet.quantity) + 1;
           this.productoLocal.quantity = cantidad;
-          this.arrayCarrito.splice(productRepet, 1, this.productoLocal);
+
+          const productRepetIndex = this.arrayCarrito.find(
+            (elemt) => (elemt.id = this.productoLocal.id)
+          );
+          this.arrayCarrito.splice(productRepetIndex, 1, this.productoLocal);
         }
         if (!productRepet) {
           this.productoLocal.quantity = 1;
           this.arrayCarrito.push(this.productoLocal);
         }
-console.log("Product" + JSON.stringify(this.productoLocal));
+        console.log("Product" + JSON.stringify(this.productoLocal));
         localStorage.removeItem("carritoCompras");
 
         localStorage.setItem(
@@ -102,15 +107,17 @@ console.log("Product" + JSON.stringify(this.productoLocal));
           JSON.stringify(this.arrayCarrito)
         );
 
-        
-
         const pa = JSON.parse(localStorage.getItem("carritoCompras"));
         pa.forEach((element) => {
-          console.log("Productos"+element);
+          console.log("Productos" + element);
         });
+
+
+
+
       } else {
-         this.productoLocal=this.product;
-         this.productoLocal.quantity=1;
+        this.productoLocal = this.product;
+        this.productoLocal.quantity = 1;
         this.arrayCarrito.push(this.productoLocal);
         localStorage.setItem(
           "carritoCompras",

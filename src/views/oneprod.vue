@@ -11,28 +11,33 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <ion-title> {{ product.name}}</ion-title>
+      <ion-title> {{ product.name }}</ion-title>
       <div>
-       <ion-img :src="product.photo"></ion-img>
-       
-         <ion-card-subtitle>{{product.stock}} en Stock</ion-card-subtitle>
-         
-       
+        <ion-img :src="product.photo"></ion-img>
+
+        <ion-card-subtitle>{{ product.stock }} en Stock</ion-card-subtitle>
       </div>
       <div>
-      <h5>Descripcion</h5>
-<p>{{product.description}}</p>
-<br>
-<h5>Envio</h5>
-<p>Envío y manipulación</p>
-<p>Envio Gratuito</p>
-<p>Express (Otro envío en 24 horas)</p>
-<p>Prevista el {{date}}</p>
-</div>
-
-
-<ion-button color="danger" syze="small"  @click="addShop"> Añadir</ion-button>
-    
+        <h5>Descripcion</h5>
+        <p>{{ product.description }}</p>
+        <br />
+        <h5>Envio</h5>
+        <p>Envío y manipulación</p>
+        <p>Envio Gratuito</p>
+        <p>Express (Otro envío en 24 horas)</p>
+        <p>Prevista el {{ date }}</p>
+      </div>
+      <div >
+        <ion-button class="p2" expand="block"  color="danger" syze="small" @click="addShop">
+          Añadir</ion-button
+        >
+         </div>
+         <div>
+        <ion-button expand="full"  color="success" syze="small" @click="volver">
+          Volver</ion-button
+        >
+        </div>
+     
     </ion-content>
   </ion-page>
 </template>
@@ -42,7 +47,6 @@ import apiService from "../apiService";
 import { useRouter } from "vue-router";
 
 import {
-  
   IonPage,
   IonHeader,
   IonToolbar,
@@ -50,13 +54,15 @@ import {
   IonMenuButton,
   IonTitle,
   IonContent,
+  IonImg,
+  IonCardSubtitle,
+  IonButton,
 } from "@ionic/vue";
 /*import router from '@/router';*/
 
 export default {
   name: "one-product",
   components: {
-    
     IonPage,
     IonHeader,
     IonToolbar,
@@ -64,6 +70,9 @@ export default {
     IonMenuButton,
     IonTitle,
     IonContent,
+    IonImg,
+    IonCardSubtitle,
+    IonButton,
   },
 
   props: ["id"],
@@ -75,7 +84,7 @@ export default {
     return {
       product: {},
       date: new Date(),
-      arrayCarrito:[],
+      arrayCarrito: [],
     };
   },
   mounted() {
@@ -83,15 +92,11 @@ export default {
   },
   methods: {
     producto() {
-        
       apiService.products
         .getOne(this.id)
         .then((response) => {
-
-    
-          console.log("holaa"+response);
+          console.log("holaa" + response);
           this.product = response.data;
-        
         })
         .catch((response) => {
           alert(response);
@@ -102,17 +107,17 @@ export default {
       this.$store.dispatch("addToCard", this.product);
       this.$router.push("/carrito");
     },
-    addShop(){
-
-      if(!localStorage.getItem('access_token')){
-   this.$router.push("/login");
-   return;
-}
-      this.arrayCarrito=JSON.parse(localStorage.getItem("carritoCompras"));
+    addShop() {
+      if (!localStorage.getItem("access_token")) {
+        this.$router.push("/login");
+        return;
+      }
+      this.arrayCarrito = JSON.parse(localStorage.getItem("carritoCompras"));
       this.arrayCarrito.push(this.product);
-      localStorage.setItem("carritoCompras",JSON.stringify(this.arrayCarrito));
-      
-      
+      localStorage.setItem("carritoCompras", JSON.stringify(this.arrayCarrito));
+    },
+    volver(){
+       this.$router.push("/productos");
     }
   },
 };
