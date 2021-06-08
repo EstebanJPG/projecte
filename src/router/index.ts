@@ -7,6 +7,7 @@ import Prod from '../views/prods.vue';
 import Register from "../views/register.vue";
 import oneProduct from "../views/oneprod.vue";
 import Carrito from '../views/carrito.vue'
+import Pedidos from '../views/orders.vue'
 const ifNotAuthenticated = (to, from, next) => {
   if (!localStorage.getItem("access_token")) {
     next()
@@ -63,6 +64,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/carrito',
     name: 'carrito',
     component: Carrito,
+  },
+  {
+    path: '/pedidos',
+    name: 'pedidos',
+    component: Pedidos,
   },
   
 ]

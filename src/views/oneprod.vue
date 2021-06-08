@@ -14,19 +14,34 @@
       <ion-title> {{ product.name }}</ion-title>
       <div>
         <ion-img :src="product.photo"></ion-img>
-
+      </div>
+      <div class="card">
         <ion-card-subtitle>{{ product.stock }} en Stock</ion-card-subtitle>
         <ion-card-subtitle>{{ product.price }} €</ion-card-subtitle>
       </div>
+
       <div>
-        <h5>Descripcion</h5>
-        <p>{{ product.description }}</p>
-        <br>
-        <h5>Envio</h5>
-        <p>Envío y manipulación</p>
-        <p>Envio Gratuito</p>
-        <p>Express (Otro envío en 24 horas)</p>
-        <p>Envio Previsto el {{ sumarFecha() }}</p>
+        <ion-list>
+          <ion-item>
+            <ion-label
+              ><h2>Descripcion</h2>
+              <h3>{{ product.description }}</h3>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label
+              ><h2>Envio</h2>
+              <h3><p>Envío y manipulación</p></h3>
+              <p>Envio Gratuito</p></ion-label
+            >
+          </ion-item>
+          <ion-item>
+            <ion-label
+              ><h2>Express (Otro envío en 24 horas)</h2>
+              <h3>Envio Previsto el {{ sumarFecha() }}</h3></ion-label
+            >
+          </ion-item>
+        </ion-list>
       </div>
       <div>
         <ion-button
@@ -63,6 +78,9 @@ import {
   IonImg,
   IonCardSubtitle,
   IonButton,
+  IonList,
+  IonLabel,
+  IonItem,
 } from "@ionic/vue";
 /*import router from '@/router';*/
 
@@ -79,6 +97,9 @@ export default {
     IonImg,
     IonCardSubtitle,
     IonButton,
+    IonList,
+    IonLabel,
+    IonItem,
   },
 
   props: ["id"],
@@ -97,9 +118,11 @@ export default {
   },
   methods: {
     sumarFecha() {
-      const fecha= new Date();
-      fecha.setDate(fecha.getDate() + 10);
-      return fecha.getDay()+ " "+ fecha.getMonth()+ " "+fecha.getFullYear();
+      const fecha = new Date();
+      fecha.setDate(fecha.getDate() + 55);
+      return (
+        fecha.getDay() + " " + fecha.getMonth() + " " + fecha.getFullYear()
+      );
     },
 
     producto() {
@@ -171,3 +194,19 @@ export default {
   },
 };
 </script>
+<style>
+div {
+  margin-top: 2vh;
+}
+
+ion-img{
+    border-radius: 13px !important;
+}
+
+img{
+    border-radius: 13px !important;
+}
+.card{
+  margin-left: 3vh;
+}
+</style>

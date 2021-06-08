@@ -27,9 +27,11 @@
             ></ion-input>
           </ion-item>
         </ion-list>
+        <div class="boton">
         <ion-button color="success" type="submit">Submit</ion-button>
         <ion-button color="danger" type="reset">Reset</ion-button>
-         <ion-button small href="/register" class="botonRegister">Register</ion-button>
+         <ion-button small href="/register">Register</ion-button>
+         </div>
       </form>
       </div>
     </ion-content>
@@ -130,7 +132,7 @@ return new Promise((resolve, reject) => {
                 localStorage.setItem("userName", response.data.name);
                 localStorage.setItem("userID", response.data.id);
                 localStorage.setItem("userAddress", response.data.address);
-                this.$router.push("/productos"),
+                this.$router.go(0),
               
                 console.log("ok");
 
@@ -160,5 +162,17 @@ return new Promise((resolve, reject) => {
         border:0px;
         width:80px;
         height:19px;
+        float: right;
+       
+}
+.boton{
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+margin: 3vh;
+}
+
+form{
+  margin: 30px;
 }
 </style>

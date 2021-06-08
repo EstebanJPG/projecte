@@ -35,6 +35,13 @@
                 <ion-icon slot="start" name="'carrito'"></ion-icon>
                 <ion-label> Carrito </ion-label>
               </ion-item>
+               <ion-item
+                v-if="logget"
+                href="/pedidos"
+              >
+                <ion-icon slot="start" name="'pedidos'"></ion-icon>
+                <ion-label> Pedidos </ion-label>
+              </ion-item>
             </ion-menu-toggle>
           </ion-list>
         </ion-content>

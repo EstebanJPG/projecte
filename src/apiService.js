@@ -42,7 +42,7 @@ const search ={
     getUser : (email1) => axios.post(`${baseURL2}/search`,{email:email1}),
  };
  const searchOrders ={
-    getOrders : (id) => axios.post(`${baseURL2}/searchOrderUser`,{userid:id}),
+    getOrders : (id) => axios.post(`${baseURL2}/searchOrderUser`,{user_id:id}),
  };
 const orders = {
     getAll: () => axios.get(`${baseURL2}/orders`, config),

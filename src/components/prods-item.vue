@@ -12,7 +12,7 @@
     </ion-card-content>
     
     <ion-button color="danger" syze="small" @click="addShop">Añadir</ion-button>
-    <ion-button color="success" syze="small" @click="ver">Ver</ion-button>
+    <ion-button style="float: right;" color="success" syze="small" @click="ver">Ver</ion-button>
   </ion-card>
 </template>
 <script>

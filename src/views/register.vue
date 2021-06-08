@@ -94,8 +94,10 @@
                   de mis datos personales
                 </ion-item>
               </div>
+              <div class="boton">
               <ion-button color="success" type="submit">Submit</ion-button>
-              <ion-button color="danger" type="reset">Reset</ion-button>
+              <ion-button color="danger" type="reset" >Reset</ion-button>
+              </div>
             </ion-list>
           </form>
         </div>
@@ -208,14 +210,19 @@ console.log(this.user);
 };
 </script>
 <style scoped>
-.botonRegister {
-  font-size: 10px;
-  font-family: Verdana, Helvetica;
-  font-weight: bold;
-  color: white;
-  background: #638cb5;
-  border: 0px;
-  width: 80px;
-  height: 19px;
+
+.boton{
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+margin-top: 5vh;
+}
+
+form{
+  margin: 5vh;
+}
+
+h1{
+  text-align: center;
 }
 </style>

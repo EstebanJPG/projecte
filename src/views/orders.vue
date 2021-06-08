@@ -5,33 +5,34 @@
         <ion-buttons slot="start">
           <ion-menu-button></ion-menu-button>
         </ion-buttons>
-        <ion-title> Orders </ion-title>
+        <ion-title> Pedidos </ion-title>
       </ion-toolbar>
     </ion-header>
 
     <ion-content class="ion-margin">
-      <ion-grid class="ion-margin">
-        <ion-row>
-          <ion-col>ID</ion-col>
-          <ion-col>State</ion-col>
-          <ion-col>Created</ion-col>
-          <ion-col>Reportar</ion-col>
-          <ion-col>Incidentes</ion-col>
+      <div>
+      <div v-if="orders.length>0"  style="font-size: 0.8em;">
+      <ion-grid style="--ion-grid-column-padding-s">
+        <ion-row class="row">
+          <ion-col size="2">ID</ion-col>
+          <ion-col size="2">State</ion-col>
+          <ion-col size="3">Created</ion-col>
+          <ion-col size="5">Reports/Incidents</ion-col>
+         
         </ion-row>
         <ion-row v-for="(order, index) in orders" :key="index">
-          <ion-col>{{ order.id }}</ion-col>
-          <ion-col>{{ estados(order.state) }} €</ion-col>
-          <ion-col>{{ dateformat(order.created_at) }} </ion-col>
-          <ion-col>
+          <ion-col size="2">{{ order.id }}</ion-col>
+          <ion-col size="3">{{ estados(order.state) }} </ion-col>
+          <ion-col size="3">{{ dateformat(order.created_at) }} </ion-col>
+          <ion-col size="4">
             <ion-button
               class="p2"
               expand="block"
               color="danger"
               syze="small"
-              @click="reportOrder"
+              @click="reporteInsert(order)"
             >
-              Report</ion-button
-            >
+              Report</ion-button>
 
             <div
               disabled
@@ -43,7 +44,7 @@
              <ion-icon name="checkbox"></ion-icon>
             </div>
 
-            <button
+            <ion-button
               disabled
               hidden
               v-if="order.report"
@@ -52,38 +53,33 @@
               @click="clearReportOrder"
             >
              <ion-icon name="checkbox"></ion-icon>
-            </button>
-          </ion-col>
-          <ion-col v-if="order.report"
-            ><ion-button
+            </ion-button>
+            <ion-button v-if="order.report" class="boton"
               color="primary"
               size="small"
-              @click="verReport(order)"
-              >Ver incidente</ion-button
-            ></ion-col>
+              @click="alertIonic(order.report)"
+              >Incident</ion-button
+            >
 
-            <ion-col v-if="!order.report"
-            >Sin incidentes</ion-col>
+          
+          <p v-if="!order.report"> Sin incidentes</p>
+          </ion-col>
+        
+            
         </ion-row>
       </ion-grid>
-
-      
-
-      <div>
-        <ion-button
-          class="p2"
-          expand="block"
-          color="danger"
-          syze="small"
-          @click="presentConfirm"
-        >
-          Procesar</ion-button
-        >
       </div>
+      <div v-if="orders.length==0">
+      <h3 style=" text-align: center;">No hay ningún Pedido</h3>
+      </div>
+          
+    
+
+   
       <div>
         <ion-button expand="full" color="success" syze="small" @click="volver">
-          Volver</ion-button
-        >
+          Volver</ion-button>
+       </div>
       </div>
     </ion-content>
   </ion-page>
@@ -106,9 +102,7 @@ import {
   IonRow,
   IonCol,
   IonButton,
-  IonImg,
-  IonInput,
-  IonIcon
+  IonIcon,
 } from "@ionic/vue";
 /*import router from '@/router';*/
 
@@ -126,9 +120,7 @@ export default {
     IonRow,
     IonCol,
     IonButton,
-    IonImg,
-    IonInput,
-    IonIcon
+    IonIcon,
   },
 
   setup() {
@@ -157,6 +149,7 @@ export default {
           id: 4,
         },
       ],
+      reporte:"",
     };
   },
 
@@ -177,28 +170,41 @@ export default {
         .then((a) => a.present());
     },
 
-    presentConfirm() {
-      const alert = this.alertCtrl.create({
-        title: "Confirma",
-        message: "Estas Seguro de querer continuar?",
-        buttons: [
-          {
-            text: "Cancel",
-            role: "cancel",
-            handler: () => {
-              console.log("Cancel clicked");
+    async reporteInsert(order) {
+
+    
+      const alert = await alertController
+        .create({
+          cssClass: 'my-custom-class',
+          header: 'Inserta el reporte',
+          inputs: [
+            {
+              name: 'reporte',
+              id: 'reporte-id',
+              placeholder: 'Inserta el Reporte',
             },
-          },
-          {
-            text: "Ok",
-            handler: () => {
-              console.log("Buy clicked");
-              this.addOrder();
+          ],
+          buttons: [
+            {
+              text: 'Cancel',
+              role: 'cancel',
+              cssClass: 'secondary',
+              handler: () => {
+                console.log('Confirm Cancel')
+              },
             },
-          },
-        ],
-      });
-      alert.present();
+            {
+              text: 'Ok',
+              handler: () => {
+                const report=document.getElementById("reporte-id").value;
+             this.editOrderState(order, report)
+               
+             
+              },
+            },
+          ],
+        });
+      return alert.present();
     },
 
     volver() {
@@ -206,16 +212,33 @@ export default {
     },
 
     estados(id) {
-      return orders.find((item) => item.id == id);
+      return this.states.find((item) => item.id == id).name;
+    },
+    dateformat(created) {
+      const j = new Date(created);
+
+      return j.toLocaleDateString() + " " + j.toLocaleTimeString();
     },
 
     loadOrders() {
+    const iDD=  localStorage.getItem("userID");
       apiService.searchOrders
-        .getOrders(this.id)
-        .then((response) => {
+        .getOrders(iDD)
+        .then(response => {
           this.orders = response.data;
         })
         .catch((response) => this.alertIonic(response.message));
+    },
+    editOrderState(order1, reporte) {
+      order1.report=reporte;
+      apiService.ordersApi
+        .modify(order1)
+        .then((response) => {
+         this.order.report=response.data.report
+        })
+        .catch((response) => {
+          this.alertIonic(response.message);
+        });
     },
   },
 };
@@ -228,5 +251,13 @@ export default {
 }
 .total {
   text-align: right;
+}
+
+.boton{
+  --width: 40px;
+  --height: 40px;
+  --vertical-align: middle;
+  --padding-start: 10px;
+  --padding-end: 10px;
 }
 </style>

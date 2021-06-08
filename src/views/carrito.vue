@@ -9,13 +9,13 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content class="ion-margin">
+    <ion-content class="ion-margin" style="font-size: 0.8em;">
       <ion-grid class="ion-grid-width-sm">
         <ion-row>
-          <ion-col>Producto</ion-col>
-          <ion-col>Precio</ion-col>
-          <ion-col>Cantidad</ion-col>
-          <ion-col>Subtotal</ion-col>
+          <ion-col size="3">Producto</ion-col>
+          <ion-col size="3">Precio</ion-col>
+          <ion-col size="3">Cantidad</ion-col>
+          <ion-col size="3">Subtotal</ion-col>
           <ion-col></ion-col>
         </ion-row>
         <ion-row class="tabla" v-for="(producto, index) in carrito" :key="index">
