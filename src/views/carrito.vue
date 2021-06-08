@@ -85,7 +85,7 @@ import {
 /*import router from '@/router';*/
 
 export default {
-  name: "one-product",
+  name: "carrito",
   components: {
     IonPage,
     IonHeader,
