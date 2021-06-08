@@ -10,7 +10,7 @@
     </ion-header>
 
     <ion-content class="ion-margin">
-      <ion-grid class="ion-margin">
+      <ion-grid class="ion-grid-width-sm">
         <ion-row>
           <ion-col>Producto</ion-col>
           <ion-col>Precio</ion-col>
@@ -18,7 +18,7 @@
           <ion-col>Subtotal</ion-col>
           <ion-col></ion-col>
         </ion-row>
-        <ion-row v-for="(producto, index) in carrito" :key="index">
+        <ion-row class="tabla" v-for="(producto, index) in carrito" :key="index">
           <ion-col><ion-img :src="producto.photo"></ion-img></ion-col>
           <ion-col>{{ producto.price }} €</ion-col>
           <ion-col
@@ -196,7 +196,7 @@ export default {
           const order = {
             state: "1",
             address: localStorage.getItem("userAddress"),
-            "user_id": localStorage.getItem("userID"),
+            user_id: localStorage.getItem("userID"),
           };
 
           apiService.ordersApi
@@ -211,8 +211,8 @@ export default {
                   quantity: element.quantity,
                   price: element.price,
                   discount: 0,
-                  "product_id": element.id,
-                  "order_id": response.data.id,
+                  product_id: element.id,
+                  order_id: response.data.id,
                 };
 
                 apiService.ordersLineApi
@@ -243,4 +243,7 @@ export default {
 .total {
   text-align: right;
 }
+
+
+
 </style>
