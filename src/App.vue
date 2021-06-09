@@ -9,36 +9,30 @@
         </ion-header>
         <ion-content>
           <ion-list>
+            
             <ion-menu-toggle auto-hide="false">
+              <ion-item>
+              <ion-label>DarkMode</ion-label>
+              <ion-toggle @ionChange="change" value="dark"> </ion-toggle>
+            </ion-item>
               <ion-item href="/productos">
-                <ion-icon slot="start" name="'productos'"></ion-icon>
-                <ion-label> Productos </ion-label>
+                <ion-label
+                  ><ion-icon name="home"></ion-icon> Productos
+                </ion-label>
               </ion-item>
-              <ion-item
-                v-if="!logget"
-                href="/login"
-              >
-                <ion-icon slot="start" name="'login'"></ion-icon>
+              <ion-item v-if="!logget" href="/login">
+                <ion-icon name="contact"></ion-icon>
                 <ion-label> Login </ion-label>
               </ion-item>
-              <ion-item
-                v-if="logget"
-                href="/logout"
-              >
+              <ion-item v-if="logget" href="/logout">
                 <ion-icon slot="start" name="'logout'"></ion-icon>
                 <ion-label> Logout </ion-label>
               </ion-item>
-               <ion-item
-                v-if="logget"
-                href="/carrito"
-              >
+              <ion-item v-if="logget" href="/carrito">
                 <ion-icon slot="start" name="'carrito'"></ion-icon>
                 <ion-label> Carrito </ion-label>
               </ion-item>
-               <ion-item
-                v-if="logget"
-                href="/pedidos"
-              >
+              <ion-item v-if="logget" href="/pedidos">
                 <ion-icon slot="start" name="'pedidos'"></ion-icon>
                 <ion-label> Pedidos </ion-label>
               </ion-item>
@@ -46,9 +40,8 @@
           </ion-list>
         </ion-content>
       </ion-menu>
-      
+
       <ion-router-outlet id="main-content"></ion-router-outlet>
-      
     </ion-split-pane>
   </ion-app>
 </template>
@@ -68,7 +61,7 @@ import {
   IonItem,
   IonIcon,
   IonLabel,
- 
+  IonToggle,
 } from "@ionic/vue";
 import { defineComponent } from "vue";
 
@@ -88,10 +81,34 @@ export default defineComponent({
     IonItem,
     IonIcon,
     IonLabel,
-    
+    IonToggle,
   },
   data: () => ({
-    logget:localStorage.getItem('access_token')
+    logget: localStorage.getItem("access_token"),
+    darkMode: false,
   }),
+
+  mounted() {
+    this.changeDarkMode();
+  },
+  methods: {
+    changeDarkMode() {
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+      if (prefersDark.matches) {
+        document.body.classList.toggle("dark");
+      }
+    },
+    change() {
+      if (this.darkMode == false) {
+        document.body.classList.toggle("dark");
+      } else {
+        this.darkMode = true;
+        document.body.classList.toggle("dark");
+      }
+    },
+  },
 });
 </script>
+<style>
+
+</style>
