@@ -1,5 +1,7 @@
 <template>
   <ion-app>
+
+    <!-- Menu Todo lo engloba el split panel para que este pueda ser mostrado en cada componente  -->
     <ion-split-pane contentId="main-content">
       <ion-menu contentId="main-content">
         <ion-header>
@@ -8,12 +10,14 @@
           </ion-toolbar>
         </ion-header>
         <ion-content>
+
+          <!--La lista con las diferente opciones de navegacion -->
           <ion-list>
-            
             <ion-menu-toggle auto-hide="false">
+              <!--Opcion toogle para cambiar tema Ocuro/Claro -->
               <ion-item>
               <ion-label>DarkMode</ion-label>
-              <ion-toggle @ionChange="change" value="dark"> </ion-toggle>
+              <ion-toggle @ionChange="change" value="dark" checked> </ion-toggle>
             </ion-item>
               <ion-item href="/productos">
                 <ion-label
@@ -21,19 +25,19 @@
                 </ion-label>
               </ion-item>
               <ion-item v-if="!logget" href="/login">
-                <ion-icon name="contact"></ion-icon>
+                <ion-icon name="person-outline"></ion-icon>
                 <ion-label> Login </ion-label>
               </ion-item>
               <ion-item v-if="logget" href="/logout">
-                <ion-icon slot="start" name="'logout'"></ion-icon>
+                <ion-icon  name="logout"></ion-icon>
                 <ion-label> Logout </ion-label>
               </ion-item>
               <ion-item v-if="logget" href="/carrito">
-                <ion-icon slot="start" name="'carrito'"></ion-icon>
+                <ion-icon name="cart-outline"></ion-icon>
                 <ion-label> Carrito </ion-label>
               </ion-item>
               <ion-item v-if="logget" href="/pedidos">
-                <ion-icon slot="start" name="'pedidos'"></ion-icon>
+                <ion-icon name="bag-check-outline"></ion-icon>
                 <ion-label> Pedidos </ion-label>
               </ion-item>
             </ion-menu-toggle>
@@ -41,6 +45,7 @@
         </ion-content>
       </ion-menu>
 
+        <!-- VisTa Router --> 
       <ion-router-outlet id="main-content"></ion-router-outlet>
     </ion-split-pane>
   </ion-app>

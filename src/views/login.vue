@@ -169,10 +169,10 @@ return new Promise((resolve, reject) => {
   align-items: center;
   justify-content: center;
   text-align: center;
-margin: 3vh;
+margin: 2vh;
 }
 
 form{
-  margin: 30px;
+  margin: 20px;
 }
 </style>
