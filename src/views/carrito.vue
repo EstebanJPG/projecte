@@ -48,7 +48,7 @@
           expand="block"
           color="danger"
           syze="small"
-          @click="presentConfirm"
+          @click="presentAlertConfirm"
         >
           Procesar</ion-button
         >
@@ -125,28 +125,30 @@ export default {
         .then((a) => a.present())
     },
 
-    presentConfirm() {
-      const alert = this.alertCtrl.create({
-        title: "Confirma",
-        message: "Estas Seguro de querer continuar?",
-        buttons: [
-          {
-            text: "Cancel",
-            role: "cancel",
-            handler: () => {
-              console.log("Cancel clicked");
+    presentAlertConfirm() {
+      return alertController
+        .create({
+          header: 'Confirma!',
+          message: 'Estas segur@!!!',
+          buttons: [
+            {
+              text: 'Cancel',
+              role: 'cancel',
+              cssClass: 'secondary',
+              handler: blah => {
+                console.log('Confirm Cancel:', blah)
+              },
             },
-          },
-          {
-            text: "Buy",
-            handler: () => {
-              console.log("Buy clicked");
-              this.addOrder();
+            {
+              text: 'Okay',
+              handler: () => {
+                console.log('Confirm Okay')
+                this.addOrder();
+              },
             },
-          },
-        ],
-      });
-      alert.present();
+          ],
+        })
+        .then(a => a.present())
     },
 
     dellAll() {

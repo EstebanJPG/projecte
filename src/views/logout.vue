@@ -14,12 +14,11 @@ setup() {
 
     created(){
         if (localStorage) {
-        this.$router.push("/productos");
-        this.$router.go(0)
         localStorage.removeItem('access_token');
         localStorage.removeItem('userID');
         localStorage.removeItem('userName');
         localStorage.removeItem('userAddress');
+        this.$router.go(0);
         return;
       }
          

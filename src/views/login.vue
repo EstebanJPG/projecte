@@ -115,7 +115,7 @@ return new Promise((resolve, reject) => {
             }
           })
           .catch(error => {
-            console.log(error)
+           this.alertIonic(error)
             reject(error)
           })
       })
@@ -138,12 +138,12 @@ return new Promise((resolve, reject) => {
 
               })
               .catch((error) => {
-                console.log(error);
+                this.alertIonic(error);
               })
 
       })
      .catch((error) => {
-          alert(error);
+          this.alertIonic(error);
         });
   },
     }

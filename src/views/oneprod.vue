@@ -37,7 +37,7 @@
           </ion-item>
           <ion-item>
             <ion-label
-              ><h2>Express (Otro envío en 24 horas)</h2>
+              ><h2>Gratuito Correos</h2>
               <h3>Envio Previsto el {{ sumarFecha() }}</h3></ion-label
             >
           </ion-item>
@@ -137,10 +137,6 @@ export default {
         });
     },
 
-    addItem() {
-      this.$store.dispatch("addToCard", this.product);
-      this.$router.push("/carrito");
-    },
     addShop() {
       if (!localStorage.getItem("access_token")) {
         this.$router.push("/login");
